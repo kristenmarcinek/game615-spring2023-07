@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public CharacterController cc;
 
     public Animator animator;
+    public GameManager gm;
     //public Animator menuAnimator;
 
     public float playerSpeed = 2.0f;
@@ -50,6 +51,16 @@ public class PlayerController : MonoBehaviour
         }
 
         
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        
+        if (other.CompareTag("coin"))
+        {
+            Destroy(other.gameObject);
+            gm.IncrementScore();
+        }
     }
     
 }
