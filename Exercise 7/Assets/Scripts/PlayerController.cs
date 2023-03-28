@@ -1,3 +1,4 @@
+using System.Threading;
 //using System.Numerics;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,11 +22,16 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        
+        if (move != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(move, Vector3.up);
+            targetRotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360 * Time.deltaTime);
+            transform.rotation = targetRotation;         
+        }
+
         cc.Move(move * Time.deltaTime * playerSpeed);
-        transform.Rotate(0, 80 * Input.GetAxis("Horizontal") * Time.deltaTime, 0);
 
         if (Input.GetAxis("Vertical") > 0)
         {
@@ -45,4 +51,5 @@ public class PlayerController : MonoBehaviour
 
         
     }
+    
 }
