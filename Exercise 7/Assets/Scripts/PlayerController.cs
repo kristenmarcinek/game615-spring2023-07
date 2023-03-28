@@ -1,4 +1,4 @@
-using System.Threading;
+//using System.Threading;
 //using System.Numerics;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour
 
     public float playerSpeed = 2.0f;
 
+    public float rotationSmoothTime;
+    public float currentAngle; 
+    public float currentAngleVelocity;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,14 +29,22 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         
-        if (move != Vector3.zero)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(move, Vector3.up);
-            targetRotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360 * Time.deltaTime);
-            transform.rotation = targetRotation;         
+        // if (move != Vector3.zero)
+        // {
+        //     Quaternion targetRotation = Quaternion.LookRotation(move, Vector3.up);
+        //     targetRotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360 * Time.deltaTime);
+        //     transform.rotation = targetRotation;         
+        // }
+
+        if (move.magnitude >= 0.1f) 
+        {     
+            float targetAngle = Mathf.Atan2(move.x, move.z) * Mathf.Rad2Deg;
+            currentAngle = Mathf.SmoothDampAngle(currentAngle, targetAngle, ref currentAngleVelocity, rotationSmoothTime);     
+            transform.rotation = Quaternion.Euler(0, currentAngle, 0);     
+            cc.Move(move * playerSpeed * Time.deltaTime); 
         }
 
-        cc.Move(move * Time.deltaTime * playerSpeed);
+        // cc.Move(move * Time.deltaTime * playerSpeed);
 
         if (Input.GetAxis("Vertical") > 0)
         {
