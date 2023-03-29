@@ -5,7 +5,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    float health = 90;
+    public float health = 90;
     public Animator healthBarAnim;
     int score = 0;
     public TMP_Text scoreText;

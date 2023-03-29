@@ -15,6 +15,7 @@ public class WaspScript : MonoBehaviour
     {
         // Grab the reference to the NavMeshAgent on this gameObject.
         nma = gameObject.GetComponent<NavMeshAgent>();
+        gm = GameObject.Find("GameManagerObject").GetComponent<GameManager>();
         
     }
 
@@ -61,6 +62,7 @@ public class WaspScript : MonoBehaviour
         {
             Debug.Log("collided");
             WaspAnim.SetTrigger("attack");
+            gm.health -= 30;
             
         }
     }
