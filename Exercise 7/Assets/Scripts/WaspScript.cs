@@ -9,6 +9,7 @@ public class WaspScript : MonoBehaviour
     float newPositionTimer = 0;
     public GameManager gm;
     public Animator WaspAnim;
+    
 
     // Start is called before the first frame update
     void Start()
