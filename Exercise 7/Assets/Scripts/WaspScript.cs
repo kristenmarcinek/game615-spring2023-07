@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyController : MonoBehaviour
+public class WaspScript : MonoBehaviour
 {
     NavMeshAgent nma;
     float newPositionTimer = 0;
     public GameManager gm;
+    public Animator WaspAnim;
 
     // Start is called before the first frame update
     void Start()
@@ -55,17 +56,12 @@ public class EnemyController : MonoBehaviour
         // below checks to see that that object has the tag "coin". Remember that
         // the tags for GameObjects are assigned in the top left area of the
         // inspector when you select the obect.
-        if (other.CompareTag("coin"))
-        {
-            
-            
-        }
 
-        if (other.CompareTag("player"))
+        if (other.CompareTag("Player"))
         {
             Debug.Log("collided");
-            Rigidbody rb = gameObject.GetComponent<Rigidbody>();
-            rb.AddForce(gameObject.transform.forward * -10000);
+            WaspAnim.SetTrigger("attack");
+            
         }
     }
 }
