@@ -16,6 +16,7 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         transform.LookAt(target);
-        transform.position = target.transform.position + new Vector3(0, 7, -5);
+        Vector3 angle = new Vector3(0, 5, -5);
+        transform.position = target.transform.position + angle;
     }
 }
